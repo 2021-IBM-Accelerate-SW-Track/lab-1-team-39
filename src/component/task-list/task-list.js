@@ -17,6 +17,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+//TODO: When button is clicked and textflied has an exceptable input, add value in text field to list
+//TODO: align task list to middle of page with a minimal border(maybe light grey)
+//TODO: change comment Icon to edit icon from material -ui
+//TODO: when comment icon clicked alow user to change task name to valide task name input
+
 export default function Task_List() {
   const classes = useStyles();
   const [checked, setChecked] = React.useState([0]);
@@ -48,6 +53,7 @@ export default function Task_List() {
                 tabIndex={-1}
                 disableRipple
                 inputProps={{ 'aria-labelledby': labelId }}
+                color="primary"
               />
             </ListItemIcon>
             <ListItemText id={labelId} primary={`Line item ${value + 1}`} />

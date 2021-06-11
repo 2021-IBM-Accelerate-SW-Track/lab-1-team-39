@@ -1,17 +1,9 @@
 import Header from "./component/header"
-import { makeStyles } from '@material-ui/core/styles';
+import Task_Text_Field from "./component/task-text-field"
+import Task_List from "./component/task-list"
 import './App.css';
 import React from 'react';
-import Task_Text_Field from "./component/task-text-field"
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: '25ch',
-    },
-  },
-}));
 
 function App() {
   return (
@@ -19,6 +11,7 @@ function App() {
     <div className="App">
       <Header/>
       <Task_Text_Field/>
+      <Task_List/>
     </div>
   );
 }

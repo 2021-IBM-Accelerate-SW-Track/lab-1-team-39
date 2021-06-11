@@ -9,7 +9,6 @@ import React from 'react';
 function App() {
   return (
     //display components + changes
-    
     <div className="App">
       <Header/>
       <Task_Text_Field/>

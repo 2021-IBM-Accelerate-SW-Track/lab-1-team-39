@@ -41,7 +41,7 @@ export default function Task_List() {
 // map. generalizes a
   return (
     <List className={classes.root}>
-      {['task-1', 'task-2', 'task-3', 3].map((value) => {
+      {[0, 1, 2, 3].map((value) => {
         const labelId = `checkbox-list-label-${value}`;
 
         return (

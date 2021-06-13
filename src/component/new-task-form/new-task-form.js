@@ -29,8 +29,12 @@ export default function New_Task_Form() {
 
   //stores vaild textfield value in array 
   //TODO: pass the array task list
+  //TODO: display date and time
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    var taskDateTime = {currentDateTime: Date().toLocaleString()}
+
     //handles error
     setTaskError(false)
     if(task == ''){
@@ -38,7 +42,10 @@ export default function New_Task_Form() {
     }
     //stores task in task array and sends task list
     if(task){
-      console.log(task)
+      //test output
+      console.log(`Task name: ${task}`)
+      console.log(`Date added: ${taskDateTime.currentDateTime}`)
+      console.log('new task added')
     }
   }
 
@@ -54,7 +61,7 @@ export default function New_Task_Form() {
       error = {taskError}
       />
       <Button 
-      onClick={() => console.log('you clicked me')}
+      onClick={() => console.log('attempt to add new task')}
       type = "submit"
       variant= "contained" 
       color= "primary"

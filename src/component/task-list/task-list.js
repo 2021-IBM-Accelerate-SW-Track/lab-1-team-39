@@ -38,7 +38,7 @@ export default function Task_List() {
 
     setChecked(newChecked);
   };
-
+// map. generalizes a
   return (
     <List className={classes.root}>
       {[0, 1, 2, 3].map((value) => {

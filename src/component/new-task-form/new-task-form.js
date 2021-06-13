@@ -37,6 +37,8 @@ export default function New_Task_Form() {
       setTaskError(true)
     }
     //stores task in task array and sends task list
+    //TODO: store task value in array 
+    //TODO: send array list display using task-list component
     if(task){
       console.log(task)
     }

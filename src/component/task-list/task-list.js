@@ -6,19 +6,19 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
-import CommentIcon from '@material-ui/icons/Comment';
+import Fab from '@material-ui/core/Fab';
+import EditIcon from '@material-ui/icons/Edit';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    maxWidth: 360,
+    maxWidth: '100%',
     backgroundColor: theme.palette.background.paper,
   },
 }));
 
 //TODO: When button is clicked and textflied has an exceptable input, add value in text field to list
-//TODO: align task list to middle of page with a minimal border(maybe light grey)
+//TODO: align task list to middle of page with a minimal border(maybe light grey) @oziomarc
 //TODO: change comment Icon to edit icon from material -ui @oziomarc
 //TODO: when comment icon clicked alow user to change task name to valide task name input
 
@@ -58,9 +58,9 @@ export default function Task_List() {
             </ListItemIcon>
             <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
             <ListItemSecondaryAction>
-              <IconButton edge="end" aria-label="comments">
-                <CommentIcon />
-              </IconButton>
+            <Fab size="small" color="primary" aria-label="edit">
+              <EditIcon />
+            </Fab>
             </ListItemSecondaryAction>
           </ListItem>
         );

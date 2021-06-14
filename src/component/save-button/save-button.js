@@ -18,7 +18,7 @@ export default function Save_Button() {
   return (
     <div className={classes.root}>
       <Button variant="contained" color="primary">
-        Save Task
+        Save
       </Button>
     </div>
   );

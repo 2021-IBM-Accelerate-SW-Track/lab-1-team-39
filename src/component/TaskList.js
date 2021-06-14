@@ -23,35 +23,12 @@ const useStyles = makeStyles((theme) => ({
 //TODO: change comment Icon to edit icon from material -ui
 //TODO: when comment icon clicked alow user to change task name to valide task name input
 
-
-*/
-/*
-import React from "react"
-import Task from "./Task"
-import { List } from "@material-ui/core";
-
-function TaskList({todos, removeTodo, toggleComplete }){
-  return(
-    <List>
-    {todos.map(todo => (
-      <Task
-        key={todo.id}
-        todo={todo}
-        removeTodo={removeTodo}
-        toggleComplete={toggleComplete}
-      />
-    ))}
-  </List>
-  );
-}
-
-
-export default TaskList;
 */
 
 import { List } from "@material-ui/core";
 import React from "react";
 import Task from "./Task";
+
 
 function TaskList({ todos, removeTodo, toggleComplete }) {
   return (

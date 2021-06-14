@@ -1,6 +1,4 @@
-
-  
-import header from "./component/header"
+ import Header from "./component/Header"
 
 import React, { useState } from "react";
 import TaskForm from "./component/TaskForm";
@@ -40,7 +38,7 @@ function App() {
 
   return ( // pass "addTask" function to the TaskForm component as a prop
     <div className="App">
-      <header />
+      <Header />
       <TaskForm addTodo={addTask} /> 
       <TaskList
         todos={todos}

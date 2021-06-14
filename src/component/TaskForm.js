@@ -1,6 +1,6 @@
 import { Button, TextField } from "@material-ui/core";
 import React, { useState } from "react";
-import {v4 as uuid} from "uuid"; 
+import {v4 as uuid} from "uuid"; // make sure you install uuid : npm install uuid. Seves as an id to track each individual note!
 
 function TaskForm({ addTodo }) {
   const [todo, setTodo] = useState({

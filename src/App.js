@@ -1,52 +1,95 @@
- import Header from "./component/Header"
-
-import React, { useState } from "react";
-import TaskForm from "./component/TaskForm";
-import TaskList from "./component/TaskList";
-
+import React, {useState} from "react";
+import "./App.css";
 
 function App() {
-  const [todos, setTasks] = useState([]);
+  const [todos, setTodos] = useState([]); // todos is the array of TODOs
+  const [todo, setTodo] = useState(""); // todo is the current TODO object
+  const [todoEditing, setTodoEditing] = useState(null); //todoEditing is the id of the TODO being edited
+  const [editingText, setEditingText] = useState(""); //editingText is the text to be submitted
 
-//useState is a function that takes an inital state as a property and outputs a tuple array of 2 items.
-// const [state, setState] = useState([]); Here state in our case is an array. seState is a function used to update the state (array)
-// We need this function(setState) because in React states are immutable i.e in order to update the array.
+  function handleSubmit(e) {
+    e.preventDefault(); // just a good react practice 
 
+    const newTodo = { // make a TODO object
+      id: new Date().getTime(), //just a unique id (can be anything)
+      text: todo,
+      completed: false,
+    };
+    setTodos([...todos].concat(newTodo)); //takes in our current TODOs and makes a new array out of it and concats it.
+    setTodo(""); // just to restore the hook to its empty string
+  }
 
-  function addTask(todo) {
-    // adds new todo to beginning of todos array
-    setTasks([todo, ...todos]);
+  function deleteTodo(id) {
+    let updatedTodos = [...todos].filter((todo) => todo.id !== id); // The filter() method creates a new array with all elements that pass the test implemented by the provided function.
+    setTodos(updatedTodos);
   }
 
   function toggleComplete(id) {
-    setTasks(
-      todos.map(todo => {
-        if (todo.id === id) {
-          return {
-            ...todo,
-            completed: !todo.completed
-          };
-        }
-        return todo;
-      })
-    );
+    let updatedTodos = [...todos].map((todo) => {
+      if (todo.id === id) { // if this is the todo is which is completed
+        todo.completed = !todo.completed; // set its completed val to opp of whats there now
+      }
+      return todo;
+    });
+    setTodos(updatedTodos);
   }
 
-  function removeTask(id) {
-    setTasks(todos.filter(todo => todo.id !== id));
+  function submitEdits(id) {
+    const updatedTodos = [...todos].map((todo) => {
+      if (todo.id === id) {
+        todo.text = editingText;
+      }
+      return todo;
+    });
+    setTodos(updatedTodos);
+    setTodoEditing(null);
   }
 
-  return ( // pass "addTask" function to the TaskForm component as a prop
-    <div className="App">
-      <Header />
-      <TaskForm addTodo={addTask} /> 
-      <TaskList
-        todos={todos}
-        removeTodo={removeTask}
-        toggleComplete={toggleComplete}
-      />
+  return (
+    <div id="todo-list">
+      <h1>Todo List</h1>
+      
+      <form onSubmit={handleSubmit}> {/*Submit hadler runs whenever submit button is clicked. handleSubmit func run when submit is run */} 
+        <input // input text for typing our TODOs and a button for "addTodo" so we can submit
+          type="text"
+          onChange={(e) => setTodo(e.target.value)} // arrow function passes the input text. e.target.value to access the text. e is an event object
+          value={todo}
+        />
+        <button type="submit">Add Todo</button> 
+      </form>
+      {todos.map((todo) => (
+        
+        <div key={todo.id} >
+          <div>
+            <input
+              type="checkbox"
+              checked={todo.completed}
+              onChange={() => toggleComplete(todo.id)}
+            />
+            {todo.id === todoEditing ? (
+              <input
+                type="text"
+                onChange={(e) => setEditingText(e.target.value)}
+              />
+            ) : (
+              <div>{todo.text}</div>
+            )}
+          </div>
+
+          <div>
+            {todo.id === todoEditing ? (
+              <button onClick={() => submitEdits(todo.id)}>Submit Edits</button>
+            ) : (
+              <button onClick={() => setTodoEditing(todo.id)}>Edit</button>
+            )}
+
+            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+          </div>
+        </div>
+
+      ))}
     </div>
   );
-}
+};
 
 export default App;

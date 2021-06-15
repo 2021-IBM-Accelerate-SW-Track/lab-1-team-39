@@ -1,6 +1,15 @@
 import React, {useState} from "react";
 import "./App.css";
 
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import Checkbox from '@material-ui/core/Checkbox';
+import IconButton from '@material-ui/core/IconButton';
+import CommentIcon from '@material-ui/icons/Comment';
+
 function App() {
   const [todos, setTodos] = useState([]); // todos is the array of TODOs
   const [todo, setTodo] = useState(""); // todo is the current TODO object
@@ -86,6 +95,37 @@ function App() {
             <button onClick={() => deleteTodo(todo.id)}>Delete</button>
           </div>
         </div>
+/**  updating ui
+        <ListItem key={todo.id}  role={undefined} dense button onClick={handleToggle(value)}>
+            <ListItemIcon>
+              <Checkbox
+                edge="start"
+                checked={todo.completed}
+                onChange={() => toggleComplete(todo.id)}
+                tabIndex={-1}
+                disableRipple
+                inputProps={{ 'aria-labelledby': labelId }}
+                color="primary"
+              />
+              {todo.id === todoEditing ? (
+                <input
+                  type="text"
+                  onChange={(e) => setEditingText(e.target.value)}
+                />
+              ) : (
+                <div>{todo.text}</div>
+              )}
+            </ListItemIcon>
+
+            <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+
+            <ListItemSecondaryAction>
+              <IconButton edge="end" aria-label="comments">
+                <CommentIcon />
+              </IconButton>
+            </ListItemSecondaryAction>
+        </ListItem>*/
+
 
       ))}
     </div>

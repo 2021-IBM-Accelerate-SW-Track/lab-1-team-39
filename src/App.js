@@ -8,7 +8,11 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
-import CommentIcon from '@material-ui/icons/Comment';
+import EditIcon from '@material-ui/icons/Edit';
+import CheckIcon from '@material-ui/icons/Check';
+import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
+import CancelIcon from '@material-ui/icons/Cancel';
+import { AccessAlarm, ThreeDRotation } from '@material-ui/icons';
 
 function App() {
   const [todos, setTodos] = useState([]); // todos is the array of TODOs
@@ -54,6 +58,17 @@ function App() {
     setTodoEditing(null);
   }
 
+  function cancelEdits(id) {
+    const updatedTodos = [...todos].map((todo) => {
+      if (todo.id === id) {
+        todo.text = editingText;
+      }
+      return todo;
+    });
+    setTodos(updatedTodos);
+    setTodoEditing(null);
+  }
+
   return (
     <div id="todo-list">
       <h1>Todo List</h1>
@@ -66,37 +81,9 @@ function App() {
         />
         <button type="submit">Add Todo</button> 
       </form>
+    
       {todos.map((todo) => (
-        
-        <div key={todo.id} >
-          <div>
-            <input
-              type="checkbox"
-              checked={todo.completed}
-              onChange={() => toggleComplete(todo.id)}
-            />
-            {todo.id === todoEditing ? (
-              <input
-                type="text"
-                onChange={(e) => setEditingText(e.target.value)}
-              />
-            ) : (
-              <div>{todo.text}</div>
-            )}
-          </div>
-
-          <div>
-            {todo.id === todoEditing ? (
-              <button onClick={() => submitEdits(todo.id)}>Submit Edits</button>
-            ) : (
-              <button onClick={() => setTodoEditing(todo.id)}>Edit</button>
-            )}
-
-            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
-          </div>
-        </div>
-/**  updating ui
-        <ListItem key={todo.id}  role={undefined} dense button onClick={handleToggle(value)}>
+        <ListItem key={todo.id}  role={undefined} dense button >
             <ListItemIcon>
               <Checkbox
                 edge="start"
@@ -104,7 +91,6 @@ function App() {
                 onChange={() => toggleComplete(todo.id)}
                 tabIndex={-1}
                 disableRipple
-                inputProps={{ 'aria-labelledby': labelId }}
                 color="primary"
               />
               {todo.id === todoEditing ? (
@@ -113,18 +99,36 @@ function App() {
                   onChange={(e) => setEditingText(e.target.value)}
                 />
               ) : (
-                <div>{todo.text}</div>
+                <ListItemText primary={todo.text} />
               )}
             </ListItemIcon>
 
-            <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
-
             <ListItemSecondaryAction>
-              <IconButton edge="end" aria-label="comments">
-                <CommentIcon />
+
+              {todo.id === todoEditing ? (
+                <div> 
+                  <IconButton edge="end" aria-label="comments" onClick={() => submitEdits(todo.id)}>
+                    <CheckIcon />
+                  </IconButton>
+
+                  <IconButton edge="end" aria-label="comments" onClick={() => cancelEdits(todo.id)}>
+                    <CancelIcon />
+                  </IconButton>
+                </div>
+              
+              ) : (
+                <IconButton edge="end" aria-label="comments" onClick={() => setTodoEditing(todo.id)}>
+                  <EditIcon />
+                </IconButton>
+              )}
+
+              <IconButton edge="end" aria-label="comments" onClick={() => deleteTodo(todo.id)}>
+               <DeleteOutlinedIcon />
               </IconButton>
+
             </ListItemSecondaryAction>
-        </ListItem>*/
+
+        </ListItem>
 
 
       ))}

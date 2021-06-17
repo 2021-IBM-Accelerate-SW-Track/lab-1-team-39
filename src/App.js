@@ -26,7 +26,7 @@ function App() {
     const newTodo = { // make a TODO object
       id: new Date().getTime(), //just a unique id (can be anything)
       text: todo,
-      date_added: new Date().getDate() +"/"+ Date().getMonth()+"/"+ Date().getFullYear() +" "+Date().getTime(),
+      currentDateTime: Date().toLocaleString(),
       completed: false,
     };
     setTodos([...todos].concat(newTodo)); //takes in our current TODOs and makes a new array out of it and concats it.
@@ -100,7 +100,7 @@ function App() {
                   onChange={(e) => setEditingText(e.target.value)}
                 />
               ) : (
-                <ListItemText primary={todo.text +" - Date Added:"+ todo.date_added} />
+                <ListItemText primary={todo.text +" - Date Added:"+ todo.currentDateTime} />
               )}
             </ListItemIcon>
 

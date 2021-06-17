@@ -19,6 +19,8 @@ function App() {
   const [todo, setTodo] = useState(""); // todo is the current TODO object
   const [todoEditing, setTodoEditing] = useState(null); //todoEditing is the id of the TODO being edited
   const [editingText, setEditingText] = useState(""); //editingText is the text to be submitted
+  const [todoError,setTodoError] = useState(false); //input error detector variable
+
 
   function handleSubmit(e) {
     e.preventDefault(); // just a good react practice 
@@ -30,20 +32,23 @@ function App() {
       currentDateTime: Date().toLocaleString(),
       completed: false,
     };
-     [...todos].map((todo) => {
+
+    //validation code
+    setTodoError(false);
+    if(todo == ''){
+      setTodoError(true);
+    }
+    [...todos].map((todo) => {
       if (todo.text === newTodo.text) { // if this is the todo is which is completed
         alert("You cannot enter a duplicate item"); // set its completed val to opp of whats there now
+        setTodoError(true)
         Duplicate=true;
       }
-      
     });
-    if(Duplicate===false){
+
+    if(todoError === false){
       setTodos([...todos].concat(newTodo));
       setTodo("");
-      let current = new Date();
-      let cDate = current.getFullYear() + '-' + (current.getMonth() + 1) + '-' + current.getDate();
-      let cTime = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
-      alert("The date is: "+cDate+"\nThe time is: "+cTime);
     }
    
   }
@@ -99,7 +104,7 @@ function App() {
           onChange={(e) => setTodo(e.target.value)} // arrow function passes the input text. e.target.value to access the text. e is an event object
           fullWidth
           required
-          error = {taskError}
+          error = {todoError}
         />
         <Button 
           data-testid="new-item-button"

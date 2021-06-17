@@ -48,12 +48,11 @@ function App() {
   const [editingText, setEditingText] = useState(""); //editingText is the text to be submitted
   const [todoError,setTodoError] = useState(false); //input error detector variable
 
-  
-
   function handleSubmit(e) {
     e.preventDefault(); // just a good react practice 
     
     let Duplicate=false;
+    
     const newTodo = { // make a TODO object
       id: new Date().getTime(), //just a unique id (can be anything)
       text: todo,
@@ -121,7 +120,8 @@ function App() {
     <div id="todo-list">
       <h1>Todo List</h1>
       
-      <form className={inputForm} onSubmit={handleSubmit} noValidate autoComplete="off"> {/*Submit hadler runs whenever submit button is clicked. handleSubmit func run when submit is run */} 
+      <form className={classes.inputForm} onSubmit={handleSubmit} noValidate autoComplete="off"> {/*Submit hadler runs whenever submit button is clicked. handleSubmit func run when submit is run */} 
+         <div> 
          <TextField className = {classes.textField}
           data-testid="new-item-input" // input text for typing our TODOs and a button for "addTodo" so we can submit
           label="Add a task" 
@@ -132,7 +132,9 @@ function App() {
           required
           error = {todoError}
         />
-        <Button 
+         </div>
+         <div> 
+         <Button 
           data-testid="new-item-button"
           onClick={() => console.log('attempt to add new task')}
           type = "submit"
@@ -141,6 +143,7 @@ function App() {
         >
           Save
         </Button>
+         </div>
       </form>
       <List className={classes.todoList}>
         {todos.map((todo) => (

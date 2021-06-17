@@ -46,33 +46,32 @@ function App() {
   const [todo, setTodo] = useState(""); // todo is the current TODO object
   const [todoEditing, setTodoEditing] = useState(null); //todoEditing is the id of the TODO being edited
   const [editingText, setEditingText] = useState(""); //editingText is the text to be submitted
-  const [todoError,setTodoError] = useState(false); //input error detector variable
+  var todoError = false;
 
   function handleSubmit(e) {
     e.preventDefault(); // just a good react practice 
-    
-    let Duplicate=false;
-    
+
     const newTodo = { // make a TODO object
       id: new Date().getTime(), //just a unique id (can be anything)
       text: todo,
-      currentDateTime: Date().toLocaleString(),
+      currentDateTime: new Date().toLocaleString('en-US') ,
       completed: false,
     };
 
     //validation code
-    setTodoError(false);
-    if(todo == ''){
-      setTodoError(true);
+    let Duplicate=false;
+    todoError = false;
+    
+    if(todo === ""){
+      todoError = true;
     }
     [...todos].map((todo) => {
       if (todo.text === newTodo.text) { // if this is the todo is which is completed
-        setTodoError(true)
+        todoError = true;
         Duplicate=true;
       }
     });
-
-    if(todoError === false){
+    if(todoError === false && Duplicate === false){
       setTodos([...todos].concat(newTodo));
       setTodo("");
     }
@@ -98,6 +97,7 @@ function App() {
     const updatedTodos = [...todos].map((todo) => {
       if (todo.id === id) {
         todo.text = editingText;
+        todo.currentDateTime = new Date().toLocaleString('en-US');
       }
       return todo;
     });
@@ -163,7 +163,7 @@ function App() {
                     onChange={(e) => setEditingText(e.target.value)}
                   />
                 ) : (
-                  <ListItemText primary={todo.text +" - Date Added:"+ todo.currentDateTime} />
+                  <ListItemText primary={todo.text +" - Date Added: "+ todo.currentDateTime} />
                 )}
               </ListItemIcon>
 
@@ -178,18 +178,23 @@ function App() {
                     <IconButton edge="end" aria-label="comments" onClick={() => cancelEdits(todo.id)}>
                       <CancelIcon />
                     </IconButton>
+
+                    <IconButton edge="end" aria-label="comments" onClick={() => deleteTodo(todo.id)}>
+                      <DeleteOutlinedIcon />
+                    </IconButton>
                   </div>
                 
                 ) : ( 
-                  <IconButton edge="end" aria-label="comments" onClick={() => setTodoEditing(todo.id)}>
-                    <EditIcon/>
-                  </IconButton>
+                  <div> 
+                    <IconButton edge="end" aria-label="comments" onClick={() => setTodoEditing(todo.id)}>
+                      <EditIcon/>
+                    </IconButton>
+
+                    <IconButton edge="end" aria-label="comments" onClick={() => deleteTodo(todo.id)}>
+                      <DeleteOutlinedIcon />
+                    </IconButton>
+                  </div>
                 )}
-
-                <IconButton edge="end" aria-label="comments" onClick={() => deleteTodo(todo.id)}>
-                <DeleteOutlinedIcon />
-                </IconButton>
-
               </ListItemSecondaryAction>
 
           </ListItem>

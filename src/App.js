@@ -31,7 +31,7 @@ function App() {
     };
      [...todos].map((todo) => {
       if (todo.text === newTodo.text) { // if this is the todo is which is completed
-        alert("You cannot enter a duplicate note"); // set its completed val to opp of whats there now
+        alert("You cannot enter a duplicate item"); // set its completed val to opp of whats there now
         Duplicate=true;
       }
       
@@ -39,6 +39,10 @@ function App() {
     if(Duplicate===false){
       setTodos([...todos].concat(newTodo));
       setTodo("");
+      let current = new Date();
+let cDate = current.getFullYear() + '-' + (current.getMonth() + 1) + '-' + current.getDate();
+let cTime = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
+alert("The date is: "+cDate+"\nThe time is: "+cTime);
     }
    
   }

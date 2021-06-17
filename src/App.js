@@ -19,13 +19,36 @@ import CheckIcon from '@material-ui/icons/Check';
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import CancelIcon from '@material-ui/icons/Cancel';
 
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  inputForm: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+  textField: {
+    '& > *': {
+      width: '25ch',
+    },
+  },
+  todoList: {
+    width: '100%',
+    maxWidth: '100%',
+    backgroundColor: theme.palette.background.paper,
+  },
+}));
+
 function App() {
+  const classes = useStyles();
+
   const [todos, setTodos] = useState([]); // todos is the array of TODOs
   const [todo, setTodo] = useState(""); // todo is the current TODO object
   const [todoEditing, setTodoEditing] = useState(null); //todoEditing is the id of the TODO being edited
   const [editingText, setEditingText] = useState(""); //editingText is the text to be submitted
   const [todoError,setTodoError] = useState(false); //input error detector variable
 
+  
 
   function handleSubmit(e) {
     e.preventDefault(); // just a good react practice 
@@ -98,8 +121,8 @@ function App() {
     <div id="todo-list">
       <h1>Todo List</h1>
       
-      <form onSubmit={handleSubmit}> {/*Submit hadler runs whenever submit button is clicked. handleSubmit func run when submit is run */} 
-         <TextField 
+      <form className={inputForm} onSubmit={handleSubmit} noValidate autoComplete="off"> {/*Submit hadler runs whenever submit button is clicked. handleSubmit func run when submit is run */} 
+         <TextField className = {classes.textField}
           data-testid="new-item-input" // input text for typing our TODOs and a button for "addTodo" so we can submit
           label="Add a task" 
           type="text"
@@ -116,60 +139,61 @@ function App() {
           variant= "contained" 
           color= "primary"
         >
-          Add Todo
+          Save
         </Button>
       </form>
-    
-      {todos.map((todo) => (
-        <ListItem key={todo.id}  role={undefined} dense button >
-            <ListItemIcon>
-              <Checkbox
-                edge="start"
-                checked={todo.completed}
-                onChange={() => toggleComplete(todo.id)}
-                tabIndex={-1}
-                disableRipple
-                color="primary"
-              />
-              {todo.id === todoEditing ? (
-                <input
-                  type="text"
-                  onChange={(e) => setEditingText(e.target.value)}
+      <List className={classes.todoList}>
+        {todos.map((todo) => (
+          <ListItem key={todo.id}  role={undefined} dense button >
+              <ListItemIcon>
+                <Checkbox
+                  edge="start"
+                  checked={todo.completed}
+                  onChange={() => toggleComplete(todo.id)}
+                  tabIndex={-1}
+                  disableRipple
+                  color="primary"
                 />
-              ) : (
-                <ListItemText primary={todo.text +" - Date Added:"+ todo.currentDateTime} />
-              )}
-            </ListItemIcon>
+                {todo.id === todoEditing ? (
+                  <input
+                    type="text"
+                    onChange={(e) => setEditingText(e.target.value)}
+                  />
+                ) : (
+                  <ListItemText primary={todo.text +" - Date Added:"+ todo.currentDateTime} />
+                )}
+              </ListItemIcon>
 
-            <ListItemSecondaryAction>
+              <ListItemSecondaryAction>
 
-              {todo.id === todoEditing ? (
-                <div> 
-                  <IconButton edge="end" aria-label="comments" onClick={() => submitEdits(todo.id)}>
-                    <CheckIcon />
+                {todo.id === todoEditing ? (
+                  <div> 
+                    <IconButton edge="end" aria-label="comments" onClick={() => submitEdits(todo.id)}>
+                      <CheckIcon />
+                    </IconButton>
+
+                    <IconButton edge="end" aria-label="comments" onClick={() => cancelEdits(todo.id)}>
+                      <CancelIcon />
+                    </IconButton>
+                  </div>
+                
+                ) : ( 
+                  <IconButton edge="end" aria-label="comments" onClick={() => setTodoEditing(todo.id)}>
+                    <EditIcon/>
                   </IconButton>
+                )}
 
-                  <IconButton edge="end" aria-label="comments" onClick={() => cancelEdits(todo.id)}>
-                    <CancelIcon />
-                  </IconButton>
-                </div>
-              
-              ) : ( 
-                <IconButton edge="end" aria-label="comments" onClick={() => setTodoEditing(todo.id)}>
-                  <EditIcon/>
+                <IconButton edge="end" aria-label="comments" onClick={() => deleteTodo(todo.id)}>
+                <DeleteOutlinedIcon />
                 </IconButton>
-              )}
 
-              <IconButton edge="end" aria-label="comments" onClick={() => deleteTodo(todo.id)}>
-               <DeleteOutlinedIcon />
-              </IconButton>
+              </ListItemSecondaryAction>
 
-            </ListItemSecondaryAction>
-
-        </ListItem>
+          </ListItem>
 
 
-      ))}
+        ))}
+      </List>
     </div>
   );
 };

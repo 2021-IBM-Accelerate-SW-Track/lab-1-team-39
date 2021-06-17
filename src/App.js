@@ -12,7 +12,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import Checkbox from '@material-ui/core/Checkbox';
 
-import { AccessAlarm, ThreeDRotation } from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
@@ -37,7 +36,11 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '100%',
     backgroundColor: theme.palette.background.paper,
   },
+  ListItemText:{
+    fontSize:'30px',
+  }
 }));
+
 
 function App() {
   const classes = useStyles();
@@ -58,6 +61,7 @@ function App() {
       text: todo,
       currentDateTime: Date().toLocaleString(),
       completed: false,
+      color: '#000',
     };
 
     //validation code
@@ -164,7 +168,7 @@ function App() {
                     onChange={(e) => setEditingText(e.target.value)}
                   />
                 ) : (
-                  <ListItemText primary={todo.text +" - Date Added:"+ todo.currentDateTime} />
+                  <ListItemText style={{ fontSize: "0.95rem" }} style={{ color: '#000000' }}primary={todo.text +" - Date Added: "+ todo.currentDateTime } />
                 )}
               </ListItemIcon>
 

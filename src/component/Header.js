@@ -20,7 +20,7 @@ export default function Types() {
       </Typography> 
       <Typography variant="body1" gutterBottom>
       <i>We created and included both the front and end of a to-do list web application by using React 
-      , Material UI components, and Javascript. Allow the users to organize tasks.</i>
+      , Material UI components, and Javascript. Allows the user to organize tasks.</i>
       </Typography>
       
     </div>

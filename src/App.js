@@ -41,9 +41,9 @@ function App() {
       setTodos([...todos].concat(newTodo));
       setTodo("");
       let current = new Date();
-let cDate = current.getFullYear() + '-' + (current.getMonth() + 1) + '-' + current.getDate();
-let cTime = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
-alert("The date is: "+cDate+"\nThe time is: "+cTime);
+      let cDate = current.getFullYear() + '-' + (current.getMonth() + 1) + '-' + current.getDate();
+      let cTime = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
+      alert("The date is: "+cDate+"\nThe time is: "+cTime);
     }
    
   }
@@ -90,13 +90,26 @@ alert("The date is: "+cDate+"\nThe time is: "+cTime);
       <h1>Todo List</h1>
       
       <form onSubmit={handleSubmit}> {/*Submit hadler runs whenever submit button is clicked. handleSubmit func run when submit is run */} 
-        <input data-testid="new-item-input"// input text for typing our TODOs and a button for "addTodo" so we can submit
+         <TextField 
+          data-testid="new-item-input" // input text for typing our TODOs and a button for "addTodo" so we can submit
+          label="Add a task" 
           type="text"
+          value={todo} 
+          variant="outlined" 
           onChange={(e) => setTodo(e.target.value)} // arrow function passes the input text. e.target.value to access the text. e is an event object
-          value={todo}
+          fullWidth
+          required
+          error = {taskError}
         />
-        <button data-testid="new-item-button"
-         type="submit">Add Todo</button> 
+        <Button 
+          data-testid="new-item-button"
+          onClick={() => console.log('attempt to add new task')}
+          type = "submit"
+          variant= "contained" 
+          color= "primary"
+        >
+          Add Todo
+        </Button>
       </form>
     
       {todos.map((todo) => (

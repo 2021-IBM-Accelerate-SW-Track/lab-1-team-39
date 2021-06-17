@@ -1,18 +1,23 @@
 import React, {useState} from "react";
 import "./App.css";
 
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
+
 import Checkbox from '@material-ui/core/Checkbox';
+
+import { AccessAlarm, ThreeDRotation } from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import CancelIcon from '@material-ui/icons/Cancel';
-import { AccessAlarm, ThreeDRotation } from '@material-ui/icons';
 
 function App() {
   const [todos, setTodos] = useState([]); // todos is the array of TODOs
@@ -40,7 +45,6 @@ function App() {
     }
     [...todos].map((todo) => {
       if (todo.text === newTodo.text) { // if this is the todo is which is completed
-        alert("You cannot enter a duplicate item"); // set its completed val to opp of whats there now
         setTodoError(true)
         Duplicate=true;
       }
@@ -102,7 +106,6 @@ function App() {
           value={todo} 
           variant="outlined" 
           onChange={(e) => setTodo(e.target.value)} // arrow function passes the input text. e.target.value to access the text. e is an event object
-          fullWidth
           required
           error = {todoError}
         />

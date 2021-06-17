@@ -22,15 +22,30 @@ function App() {
 
   function handleSubmit(e) {
     e.preventDefault(); // just a good react practice 
-
+    
+    let Duplicate=false;
     const newTodo = { // make a TODO object
       id: new Date().getTime(), //just a unique id (can be anything)
       text: todo,
       currentDateTime: Date().toLocaleString(),
       completed: false,
     };
-    setTodos([...todos].concat(newTodo)); //takes in our current TODOs and makes a new array out of it and concats it.
-    setTodo(""); // just to restore the hook to its empty string
+     [...todos].map((todo) => {
+      if (todo.text === newTodo.text) { // if this is the todo is which is completed
+        alert("You cannot enter a duplicate item"); // set its completed val to opp of whats there now
+        Duplicate=true;
+      }
+      
+    });
+    if(Duplicate===false){
+      setTodos([...todos].concat(newTodo));
+      setTodo("");
+      let current = new Date();
+let cDate = current.getFullYear() + '-' + (current.getMonth() + 1) + '-' + current.getDate();
+let cTime = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
+alert("The date is: "+cDate+"\nThe time is: "+cTime);
+    }
+   
   }
 
   function deleteTodo(id) {
@@ -75,12 +90,13 @@ function App() {
       <h1>Todo List</h1>
       
       <form onSubmit={handleSubmit}> {/*Submit hadler runs whenever submit button is clicked. handleSubmit func run when submit is run */} 
-        <input // input text for typing our TODOs and a button for "addTodo" so we can submit
+        <input data-testid="new-item-input"// input text for typing our TODOs and a button for "addTodo" so we can submit
           type="text"
           onChange={(e) => setTodo(e.target.value)} // arrow function passes the input text. e.target.value to access the text. e is an event object
           value={todo}
         />
-        <button type="submit">Add Todo</button> 
+        <button data-testid="new-item-button"
+         type="submit">Add Todo</button> 
       </form>
     
       {todos.map((todo) => (
@@ -117,9 +133,9 @@ function App() {
                   </IconButton>
                 </div>
               
-              ) : (
+              ) : ( 
                 <IconButton edge="end" aria-label="comments" onClick={() => setTodoEditing(todo.id)}>
-                  <EditIcon />
+                  <EditIcon/>
                 </IconButton>
               )}
 

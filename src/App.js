@@ -118,7 +118,7 @@ function App() {
 
   return (
     <div id="todo-list">
-      <h1>Todo List</h1>
+      <h1>To-Do List</h1>
       
       <form className={classes.inputForm} onSubmit={handleSubmit} noValidate autoComplete="off"> {/*Submit hadler runs whenever submit button is clicked. handleSubmit func run when submit is run */} 
          <div> 
@@ -126,6 +126,7 @@ function App() {
           data-testid="new-item-input" // input text for typing our TODOs and a button for "addTodo" so we can submit
           label="Add a task" 
           type="text"
+          color="primary"
           value={todo} 
           variant="outlined" 
           onChange={(e) => setTodo(e.target.value)} // arrow function passes the input text. e.target.value to access the text. e is an event object

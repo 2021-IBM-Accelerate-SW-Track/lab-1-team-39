@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles({
   root: {
     width: '100%',
-    maxWidth: 500,
+    maxWidth: '100%',
   },
 });
 
@@ -16,11 +16,11 @@ export default function Types() {
     <div className={classes.root}>
 
       <Typography variant="h4" gutterBottom>
-      2021 IBM Accelerate Software Group #39: To-Do List
+      <h3>2021 IBM Accelerate Software Group #39: To-Do List</h3>
       </Typography> 
       <Typography variant="body1" gutterBottom>
-      We created and included both the front and end of a to-do list web application by using React 
-      , Material UI components, and Javascript. Allow the users to organize tasks.
+      <i>We created and included both the front and end of a to-do list web application by using React 
+      , Material UI components, and Javascript. Allow the users to organize tasks.</i>
       </Typography>
       
     </div>

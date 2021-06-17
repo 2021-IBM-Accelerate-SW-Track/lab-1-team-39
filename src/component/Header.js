@@ -26,4 +26,3 @@ export default function Types() {
     </div>
   );
 }
->>>>>>> 3dc3ff938cc65b15ba6a885ca98aaa0d9ac431c8:src/component/header/header.js

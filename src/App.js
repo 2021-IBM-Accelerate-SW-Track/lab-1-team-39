@@ -75,6 +75,9 @@ function App() {
       setTodos([...todos].concat(newTodo));
       setTodo("");
     }
+    else{
+      alert("Duplicate TODO, already present on your list!")
+    }
    
   }
 

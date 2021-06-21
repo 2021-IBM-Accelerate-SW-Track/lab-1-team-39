@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import "./App.css";
 
+import Grid from '@material-ui/core/Grid';
+
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
@@ -118,32 +120,43 @@ function App() {
 
   return (
     <div id="todo-list">
-      <h1>Todo List</h1>
-      
       <form className={classes.inputForm} onSubmit={handleSubmit} noValidate autoComplete="off"> {/*Submit hadler runs whenever submit button is clicked. handleSubmit func run when submit is run */} 
-         <div> 
-         <TextField className = {classes.textField}
-          data-testid="new-item-input" // input text for typing our TODOs and a button for "addTodo" so we can submit
-          label="Add a task" 
-          type="text"
-          value={todo} 
-          variant="outlined" 
-          onChange={(e) => setTodo(e.target.value)} // arrow function passes the input text. e.target.value to access the text. e is an event object
-          required
-          error = {todoError}
-        />
-         </div>
-         <div> 
-         <Button 
-          data-testid="new-item-button"
-          onClick={() => console.log('attempt to add new task')}
-          type = "submit"
-          variant= "contained" 
-          color= "primary"
-        >
-          Save
-        </Button>
-         </div>
+         <Grid
+            item 
+            container
+            className={classes.centerColumn}
+            display="flex"
+            justify="center"c //alginment grid
+          > 
+          <TextField className = {classes.textField}
+            data-testid="new-item-input" // input text for typing our TODOs and a button for "addTodo" so we can submit
+            label="Add a task" 
+            type="text"
+            value={todo} 
+            variant="outlined" 
+            onChange={(e) => setTodo(e.target.value)} // arrow function passes the input text. e.target.value to access the text. e is an event object
+            required
+            error = {todoError}
+          />
+          </Grid>
+          <Grid
+            item
+            className={classes.centerColumn}
+            container
+            direction="row"
+            alignItems="flex-end"
+            justify="center"
+          >
+            <Button 
+              data-testid="new-item-button"
+              onClick={() => console.log('attempt to add new task')}
+              type = "submit"
+              variant= "contained" 
+              color= "primary"
+            >
+              Save
+            </Button>
+          </Grid>
       </form>
       <List className={classes.todoList}>
         {todos.map((todo) => (

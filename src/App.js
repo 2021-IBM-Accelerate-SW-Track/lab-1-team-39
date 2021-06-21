@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import "./App.css";
 
+import Header from './component/Header.js'
+
 import Grid from '@material-ui/core/Grid';
 
 import TextField from '@material-ui/core/TextField';
@@ -14,7 +16,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import Checkbox from '@material-ui/core/Checkbox';
 
-import { AccessAlarm, ThreeDRotation } from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
@@ -67,7 +68,7 @@ function App() {
     if(todo === ""){
       todoError = true;
     }
-    [...todos].map((todo) => {
+    todos.forEach(function (todo) {
       if (todo.text === newTodo.text) { // if this is the todo is which is completed
         todoError = true;
         Duplicate=true;
@@ -76,6 +77,9 @@ function App() {
     if(todoError === false && Duplicate === false){
       setTodos([...todos].concat(newTodo));
       setTodo("");
+    }
+    else{
+      alert("Duplicate TODO, already present on your list!")
     }
    
   }
@@ -120,6 +124,7 @@ function App() {
 
   return (
     <div id="todo-list">
+      <Header/>
       <form className={classes.inputForm} onSubmit={handleSubmit} noValidate autoComplete="off"> {/*Submit hadler runs whenever submit button is clicked. handleSubmit func run when submit is run */} 
          <Grid
             item 
